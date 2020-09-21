@@ -1,6 +1,5 @@
 #!/bin/bash
-### docker container control box  V. 2.6
-### Code from https://github.com/ralfyang/docker_cli_dashboard. Powered by Github.
+### docker container control box  V. 2.54
 ### Made by ralf goody80762@gmail.com
 ### Rewritten by tescom tescom@atdt01410.com 2018.08.08
 
@@ -24,14 +23,9 @@ HOST=$(hostname)
 DATE=$(date +%Y%m%d)
 
 ## find a command
-if [[ $(command -v podman) == "" ]];then
-	Docker_comm=$(command -v docker)
-else
-	Docker_comm=$(command -v podman)
-
-fi
+Docker_comm=$(command -v docker)
 ## OS Check
-Docker_version=$($Docker_comm -v | awk -F',' '{print $1}')
+Docker_version=$(docker -v | awk -F',' '{print $1}')
 ## Check the sudo
 	if [[ $(whoami) = "root" ]];then
 		SUDO=""
@@ -217,7 +211,7 @@ build_image(){
 		echo "Do you need to install docker_build_auto.sh here ? [ y/n ]"
 		read -r Answ
 			if [[ ${Answ} = "y" ]] || [[ ${Answ} = "Y" ]];then
-				wget ralfyang.github.io/docker_build_auto/docker_build_auto.sh
+				wget goody80.github.io/docker_build_auto/docker_build_auto.sh
 				sudo chmod 755 docker_build_auto.sh
 			else
 				echo "${BAR}"
